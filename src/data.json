@@ -1,0 +1,39 @@
+{
+  "history": [
+    {
+      "id": 1,
+      "copiedData": "npm install express",
+      "timestamp": "2026-06-22T09:15:24.000Z",
+      "pinned": true,
+      "shortcutKey": "Ctrl + Shift + 1"
+    },
+    {
+      "id": 2,
+      "copiedData": "git commit -m \"fix: navbar responsiveness\"",
+      "timestamp": "2026-06-22T09:18:07.000Z",
+      "pinned": false,
+      "shortcutKey": "Ctrl + Shift + 2"
+    },
+    {
+      "id": 3,
+      "copiedData": "http://localhost:3000/api/users",
+      "timestamp": "2026-06-22T09:21:42.000Z",
+      "pinned": false,
+      "shortcutKey": "Ctrl + Shift + 3"
+    },
+    {
+      "id": 4,
+      "copiedData": "SELECT * FROM users WHERE is_admin = true;",
+      "timestamp": "2026-06-22T09:24:55.000Z",
+      "pinned": true,
+      "shortcutKey": "Ctrl + Shift + 4"
+    },
+    {
+      "id": 5,
+      "copiedData": "console.log(user);",
+      "timestamp": "2026-06-22T09:27:13.000Z",
+      "pinned": false,
+      "shortcutKey": "Ctrl + Shift + 5"
+    }
+  ]
+}

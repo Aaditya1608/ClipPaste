@@ -4,7 +4,9 @@ import App from './App.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import './index.css';
 
-const root = createRoot(document.body);
+const root = createRoot(
+  document.getElementById('root')
+);
 root.render(
     <ThemeProvider>
         <App/>
