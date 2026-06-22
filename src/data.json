@@ -16,7 +16,7 @@
     },
     {
       "id": 3,
-      "copiedData": "http://localhost:3000/api/users",
+      "copiedData": "https://localhost:3000/api/v1/users/profile/settings/preferences/theme/clipboard/history/items/1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?redirect=true&source=clipstack&enableExperimentalFeatures=true",
       "timestamp": "2026-06-22T09:21:42.000Z",
       "pinned": false,
       "shortcutKey": "Ctrl + Shift + 3"
