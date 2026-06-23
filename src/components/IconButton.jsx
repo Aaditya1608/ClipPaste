@@ -1,7 +1,8 @@
 const IconButton = ({
   Icon,
   size=16,
-  onClick=""
+  onClick="",
+  className=""
 }) => {
   return (
     <button
