@@ -4,6 +4,7 @@ import data from '../data.json';
 import IconButton from '../components/IconButton.jsx';
 import {X,Copy} from 'lucide-react'
 import Card from '../components/Card.jsx';
+import TestClip from '../components/TestClip.jsx';
 const Pinned = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   return (
@@ -39,6 +40,7 @@ const Pinned = () => {
           </div>
         </div>
       )}
+      <TestClip/>
     </div>
   )
 }
