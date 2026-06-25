@@ -1,8 +1,11 @@
 import React from 'react'
 import Header from '../components/Header.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
+import { useClipboard } from '../context/ClipboardContext.jsx'
 const Settings = () => {
   const {dark, toggleTheme} = useTheme();
+  const {stackSize, setStackSize} = useClipboard();
+  console.log(stackSize);
   return (
     <div className="h-scroll bg-[#f7f7ff] dark:bg-[#070600] font-mono dark:text-[#f7f7ff]">
     <Header/>
@@ -53,7 +56,7 @@ const Settings = () => {
         <div className='flex flex-col gap-2 px-2 py-2 w-70'>
           <div className='flex flex-row justify-between'>
               <label>History Size</label>
-              <input type="text" className='border rounded-lg border-slate-400 bg-amber-50 dark:bg-slate-900 w-20'></input>
+              <input type="number" min='1' max='100' value={stackSize} onChange={(e)=> setStackSize(Number(e.target.value))} className='border rounded-lg border-slate-400 bg-amber-50 dark:bg-slate-900 w-20'></input>
           </div>
           <div className='flex flex-row justify-between'>
               <label>Ignore Duplicates</label>

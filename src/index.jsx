@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 import { HashRouter } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext.jsx';
+import { ClipboardProvider } from './context/ClipboardContext.jsx';
 import './index.css';
 
 const root = createRoot(
@@ -10,8 +11,10 @@ const root = createRoot(
 );
 root.render(
     <HashRouter>
-    <ThemeProvider>
-        <App/>
-    </ThemeProvider>
+        <ThemeProvider>
+            <ClipboardProvider>
+                <App/>
+            </ClipboardProvider>
+        </ThemeProvider>
     </HashRouter>
 );

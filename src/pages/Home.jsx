@@ -3,8 +3,7 @@ import Header from "../components/Header.jsx";
 import { useState } from "react";
 import IconButton from "../components/IconButton.jsx";
 import { Copy, X,Check } from "lucide-react";
-import useClipboard from "../hooks/useClipboard.js";
-
+import { useClipboard } from "../context/ClipboardContext.jsx";
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(null);
   const {history,togglePin} = useClipboard();
