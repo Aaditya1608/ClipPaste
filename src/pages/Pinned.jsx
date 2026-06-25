@@ -1,21 +1,37 @@
 import { useState} from 'react'
 import Header from '../components/Header.jsx'
 import IconButton from '../components/IconButton.jsx';
-import {X,Copy} from 'lucide-react'
+import {X,Copy,Check} from 'lucide-react'
 import Card from '../components/Card.jsx';
 import useClipboard from '../hooks/useClipboard.js';
 const Pinned = () => {
   const [selectedItem, setSelectedItem] = useState(null);
-  const { history } = useClipboard();
+  const { history ,togglePin} = useClipboard();
+  const [copied,setCopied] = useState(false);
+  console.log("Pinned history:", history);
+  const handleCopy = async(e) =>{
+    e.stopPropagation();
+
+    await window.electronAPI.setClipboardText(
+      selectedItem.copiedData
+    )
+    setCopied(true);
+
+    setTimeout(()=>{
+      setCopied(false);
+    },2000);
+  }
+  const pinnedItems = history.filter(item => item.pinned);
   return (
     <div className="h-screen bg-[#f7f7ff] dark:bg-[#070600] border border-zinc-200 dark:border-zinc-700">
     <Header/>
     <div className='dark:text-[#f7f7ff] px-3 py-1 text-2xl font-mono font-bold'>Pinned Items</div>
-    {history.filter((item)=>item.pinned).map((item) => (
+    {pinnedItems.map((item) => (
         <Card
           key={item.id}
           item={item}
           onClick={()=>setSelectedItem(item)}
+          onTogglePin={()=>togglePin(item.id)}
         />
       ))}
       {selectedItem && (
@@ -35,7 +51,7 @@ const Pinned = () => {
                 selectedItem.timestamp
               ).toLocaleString()}
             </p>
-            <IconButton Icon={Copy}/>
+            <IconButton Icon={copied?Check:Copy} onClick={handleCopy}/>
             </div>
           </div>
         </div>

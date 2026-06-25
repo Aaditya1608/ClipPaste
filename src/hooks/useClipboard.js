@@ -3,6 +3,19 @@ import { useEffect,useRef,useState } from "react";
 export default function useClipboard(){
     const previousTextRef = useRef(""); //used to point to the copied text before copying
     const [history,setHistory] = useState([]); // used to store the copied item details
+    const togglePin = (id) =>{
+        setHistory(prev=>
+            prev.map(item=> {
+                if(item.id === id){
+                    return {
+                        ...item,
+                        pinned: !item.pinned
+                    }
+                }
+                return item;
+            })
+        );
+    }
     useEffect(()=>{
         const interval = setInterval(async()=>{ //every one second we check( any change in the useRef) if new item is being copied or not.. 
             const text = await window.electronAPI.getClipboardText(); // we get the copied text from the user
@@ -31,6 +44,8 @@ export default function useClipboard(){
         return () => clearInterval(interval); // this is used to prevent checking every 1s
     },[])
     return {
-        history
+        history,
+        togglePin
     };
 }
+

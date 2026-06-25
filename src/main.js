@@ -24,7 +24,7 @@ const createWindow = () => {
   const yPos = 0;
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 600,
+    width: 525,
     height: 525,
     x:xPos - 600,
     y:yPos,
