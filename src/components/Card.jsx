@@ -1,10 +1,20 @@
 import IconButton from './IconButton.jsx'
 import { Copy, Pin, PinOff } from 'lucide-react'
+import { useState } from 'react'
 const Card = ({item,onClick}) => {
+  const handleCopy = async(e) =>{
+    e.stopPropagation();
+
+    await window.electronAPI.setClipboardText(
+      item.copiedData
+    )
+    console.log('Copied')
+  }
+  const [pinned,setPinned] = useState(false);
   return (
     <div onClick={onClick} className="cursor-pointer relative rounded-xl py-2 px-4 bg-[#F0E7D8] dark:bg-[#57737A] mb-2 font-mono h-27">
       <div className="absolute top-4 right-4 flex gap-2">
-      <IconButton Icon={Copy} onClick={(e) => {e.stopPropagation();}}/>
+      <IconButton Icon={Copy} onClick={handleCopy}/>
       {item.pinned ? <IconButton Icon={PinOff} onClick={(e) => {e.stopPropagation();}}/> : <IconButton Icon={Pin} onClick={(e) => {e.stopPropagation();}}/>}
     </div>
       <p className="font-semibold dark:text-[#f6f6f7] text-[#070600]">
