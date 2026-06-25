@@ -8,6 +8,14 @@ import useClipboard from "../hooks/useClipboard.js";
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(null);
   const {history} = useClipboard();
+  const handleCopy = async(e) =>{
+    e.stopPropagation();
+
+    await window.electronAPI.setClipboardText(
+      selectedItem.copiedData
+    )
+    console.log('Copied')
+  }
   return (
     <div className="h-screen bg-[#f7f7ff] dark:bg-[#070600] border border-zinc-200 dark:border-zinc-700 overflow-y-auto scrollbar-thin scrollbar-thumb-[#57737a] scrollbar-track-white">
     <Header/>
@@ -41,7 +49,7 @@ export default function Home() {
                 selectedItem.timestamp
               ).toLocaleString()}
             </p>
-            <IconButton Icon={Copy}/>
+            <IconButton Icon={Copy} onClick={handleCopy}/>
             </div>
           </div>
         </div>
