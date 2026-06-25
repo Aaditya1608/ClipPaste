@@ -1,35 +1,46 @@
-import IconButton from './IconButton.jsx'
-import { Copy, Pin, PinOff } from 'lucide-react'
-import { useState } from 'react'
-const Card = ({item,onClick}) => {
-  const handleCopy = async(e) =>{
+import IconButton from "./IconButton.jsx";
+import { Copy, Pin, PinOff, Check } from "lucide-react";
+import { useState } from "react";
+const Card = ({ item, onClick, onTogglePin }) => {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async (e) => {
     e.stopPropagation();
 
-    await window.electronAPI.setClipboardText(
-      item.copiedData
-    )
-    console.log('Copied')
-  }
-  const [pinned,setPinned] = useState(false);
+    await window.electronAPI.setClipboardText(item.copiedData);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
   return (
-    <div onClick={onClick} className="cursor-pointer relative rounded-xl py-2 px-4 bg-[#F0E7D8] dark:bg-[#57737A] mb-2 font-mono h-27">
+    <div
+      onClick={onClick}
+      className="cursor-pointer relative rounded-xl py-2 px-4 bg-[#F0E7D8] dark:bg-[#57737A] mb-2 font-mono h-27"
+    >
       <div className="absolute top-4 right-4 flex gap-2">
-      <IconButton Icon={Copy} onClick={handleCopy}/>
-      {item.pinned ? <IconButton Icon={PinOff} onClick={(e) => {e.stopPropagation();}}/> : <IconButton Icon={Pin} onClick={(e) => {e.stopPropagation();}}/>}
-    </div>
+        <IconButton Icon={copied ? Check : Copy} onClick={handleCopy} />
+        <IconButton
+          Icon={item.pinned ? PinOff : Pin}
+          onClick={(e) => {
+            e.stopPropagation();
+            onTogglePin();
+          }}
+        />
+      </div>
       <p className="font-semibold dark:text-[#f6f6f7] text-[#070600]">
-        {item.copiedData.length >50 ?
-          `${item.copiedData.slice(0,50)}...`: item.copiedData}
+        {item.copiedData.length > 42
+          ? `${item.copiedData.slice(0, 42)}...`
+          : item.copiedData}
       </p>
 
       <p className="dark:text-[#f9f9ed] text-[#040f0f] text-xs mt-2">
         {new Date(item.timestamp).toLocaleString()}
       </p>
-      <span className='dark:text-[#d9dbf1] text-xs mt-5'>{item.shortcutKey}</span>
-      
+      <span className="dark:text-[#d9dbf1] text-xs mt-5">
+        {item.shortcutKey}
+      </span>
     </div>
-    
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

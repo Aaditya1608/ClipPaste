@@ -2,19 +2,25 @@ import Card from "../components/Card.jsx";
 import Header from "../components/Header.jsx";
 import { useState } from "react";
 import IconButton from "../components/IconButton.jsx";
-import { Copy, X } from "lucide-react";
+import { Copy, X,Check } from "lucide-react";
 import useClipboard from "../hooks/useClipboard.js";
 
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState(null);
-  const {history} = useClipboard();
+  const {history,togglePin} = useClipboard();
+ const [copied,setCopied] = useState(false);
+ console.log("Home history:", history);
   const handleCopy = async(e) =>{
     e.stopPropagation();
 
     await window.electronAPI.setClipboardText(
       selectedItem.copiedData
     )
-    console.log('Copied')
+    setCopied(true);
+
+    setTimeout(()=>{
+      setCopied(false);
+    },2000);
   }
   return (
     <div className="h-screen bg-[#f7f7ff] dark:bg-[#070600] border border-zinc-200 dark:border-zinc-700 overflow-y-auto scrollbar-thin scrollbar-thumb-[#57737a] scrollbar-track-white">
@@ -24,6 +30,7 @@ export default function Home() {
           key={item.id}
           item={item}
           onClick={()=>setSelectedItem(item)}
+          onTogglePin={()=> togglePin(item.id)}
         />
       ))}
        {selectedItem && (
@@ -49,7 +56,7 @@ export default function Home() {
                 selectedItem.timestamp
               ).toLocaleString()}
             </p>
-            <IconButton Icon={Copy} onClick={handleCopy}/>
+            <IconButton Icon={copied?Check:Copy} onClick={handleCopy}/>
             </div>
           </div>
         </div>
