@@ -8,14 +8,14 @@ const Card = ({ item, onClick, onTogglePin }) => {
 
     await window.electronAPI.setClipboardText(item.copiedData);
     setCopied(true);
-    setTimeout(() => {
+    setTimeout(() => { 
       setCopied(false);
-    }, 2000);
+    }, 2000); 
   };
   return (
     <div
       onClick={onClick}
-      className="cursor-pointer relative rounded-xl py-2 px-4 bg-[#D3EFBD] dark:bg-[#57737A] mb-2 font-mono h-27"
+      className="cursor-pointer relative rounded-xl py-2 px-4 bg-[#D3EFBD] dark:bg-[#57737A] mb-2 font-mono h-19"
     >
       <div className="absolute top-4 right-4 flex gap-2">
         <IconButton Icon={copied ? Check : Copy} onClick={handleCopy} />
