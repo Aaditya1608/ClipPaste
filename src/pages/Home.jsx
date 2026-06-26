@@ -32,6 +32,10 @@ export default function Home() {
           onTogglePin={()=> togglePin(item.id)}
         />
       ))}
+      {history.length===0 && (
+        <div className="text-center mt-10 text-gray-500 dark:text-gray-400 font-mono">No copied items</div>
+
+      )}
        {selectedItem && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center font-mono dark:text-[#f7f7ff]">
           <div className="w-125 max-h-[70vh] rounded-xl bg-[#F0E7D8] dark:bg-[#57737A] p-6 flex flex-col gap-3 ">
