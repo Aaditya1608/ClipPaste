@@ -9,7 +9,7 @@ export function ClipboardProvider({ children }) {
   const [history, setHistory] = useState([]); // used to store the copied item details
   const [stackSize, setStackSize] = useState(5);
 
-  useEffect(()=>{
+  useEffect(()=>{ //we load the saved History and the stack Size stored in the keys we made globally
     const savedHistory = localStorage.getItem(HISTORY_KEY);
     const savedSize = localStorage.getItem(STACK_SIZE_KEY);
     if (savedHistory){
@@ -19,7 +19,7 @@ export function ClipboardProvider({ children }) {
       setStackSize(JSON.parse(savedSize))
     }
   },[])
-  
+
   const togglePin = (id) => {
     setHistory((prev) =>
       prev.map((item) => {
