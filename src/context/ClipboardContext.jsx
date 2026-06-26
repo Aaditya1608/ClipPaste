@@ -1,11 +1,25 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 
 const ClipboardContext = createContext();
+const HISTORY_KEY = 'clipboardHistory';
+const STACK_SIZE_KEY = 'stackSize';
 
 export function ClipboardProvider({ children }) {
   const previousTextRef = useRef(""); //used to point to the copied text before copying
   const [history, setHistory] = useState([]); // used to store the copied item details
   const [stackSize, setStackSize] = useState(5);
+
+  useEffect(()=>{
+    const savedHistory = localStorage.getItem(HISTORY_KEY);
+    const savedSize = localStorage.getItem(STACK_SIZE_KEY);
+    if (savedHistory){
+      setHistory(JSON.parse(savedHistory))
+    }
+    if(savedSize){
+      setStackSize(JSON.parse(savedSize))
+    }
+  },[])
+  
   const togglePin = (id) => {
     setHistory((prev) =>
       prev.map((item) => {
@@ -56,6 +70,18 @@ export function ClipboardProvider({ children }) {
   useEffect(() => {
     setHistory((prev) => prev.slice(0, stackSize));
   }, [stackSize]);
+  useEffect(()=>{
+    localStorage.setItem(
+      HISTORY_KEY,
+      JSON.stringify(history)
+    )
+  },[history]);
+  useEffect(()=>{
+    localStorage.setItem(
+      STACK_SIZE_KEY,
+      JSON.stringify(stackSize)
+    )
+  },[stackSize])
   const value = {
     history,
     togglePin,
