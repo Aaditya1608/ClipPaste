@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect, useRef } from "react";
 
 const ClipboardContext = createContext();
 
-export function ClipboardProvider({children}) {
+export function ClipboardProvider({ children }) {
   const previousTextRef = useRef(""); //used to point to the copied text before copying
   const [history, setHistory] = useState([]); // used to store the copied item details
   const [stackSize, setStackSize] = useState(5);
@@ -19,12 +19,14 @@ export function ClipboardProvider({children}) {
       }),
     );
   };
+
   const checkClipboard = async () => {
     const text = await window.electronAPI.getClipboardText(); // we get the copied text from the user
     if (text !== previousTextRef.current) {
       // we only consider the text, only if the new text doesnt equal to the previous text
       setHistory((prev) => {
         // this is used to set the array of copied items in runtime (every 1s)
+        const existingItem = prev.find((item) => item.copiedData === text);
         const filtered = // we filter out the other copied text, from the recent copied text, if it exists..
           prev.filter(
             (item) => item.copiedData !== text, // we check if other item equals to the newest copied item
@@ -34,8 +36,8 @@ export function ClipboardProvider({children}) {
           id: Date.now(),
           copiedData: text,
           timestamp: new Date().toISOString(),
-          pinned: false,
-          shortcutKey: null,
+          pinned: existingItem ? existingItem.pinned : false,
+          shortcutKey: existingItem ? existingItem.pinned : null,
         };
         console.log("Current stack size:", stackSize);
         return [
@@ -52,22 +54,19 @@ export function ClipboardProvider({children}) {
     return () => clearInterval(interval); // this is used to prevent checking every 1s
   }, [stackSize]);
   useEffect(() => {
-    setHistory(prev =>
-        prev.slice(0, stackSize)
-    );
-}, [stackSize]);
+    setHistory((prev) => prev.slice(0, stackSize));
+  }, [stackSize]);
   const value = {
     history,
     togglePin,
     stackSize,
-    setStackSize
-  }
+    setStackSize,
+  };
   return (
     <ClipboardContext.Provider value={value}>
       {children}
     </ClipboardContext.Provider>
   );
-
 }
 export function useClipboard() {
   return useContext(ClipboardContext);
