@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header.jsx'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { useClipboard } from '../context/ClipboardContext.jsx'
+import { X } from 'lucide-react'
+import IconButton from '../components/IconButton.jsx'
 const Settings = () => {
   const {dark, toggleTheme} = useTheme();
-  const {stackSize, setStackSize} = useClipboard();
-  console.log(stackSize);
+  const {stackSize, setStackSize,clearHistory} = useClipboard();
+  const [isClick,setIsClick] = useState(false);
+
+  const verification = ()=>{
+    setIsClick(true);
+  }
   return (
     <div className="h-scroll bg-[#f7f7ff] dark:bg-[#070600] font-mono dark:text-[#f7f7ff]">
     <Header/>
@@ -58,14 +64,22 @@ const Settings = () => {
               <label>History Size</label>
               <input type="number" min='1' max='100' value={stackSize} onChange={(e)=> setStackSize(Number(e.target.value))} className='border rounded-lg border-slate-400 bg-amber-50 dark:bg-slate-900 w-20'></input>
           </div>
-          <div className='flex flex-row justify-between'>
-              <label>Ignore Duplicates</label>
-              <input type='checkbox'></input> 
-          </div>
+          <button type="button" onClick={verification} className='border border-black bg-amber-200 rounded-xl mt-3 mb-3 dark:bg-gray-600 dark:text-white py-2'>Clear History</button>
         </div>
-        <div className='border-t border-t-slate-300 mb-5'></div>
+        <div className='border-t border-t-slate-300'></div>
     </div>
-
+    {
+        isClick && (
+            <div className='fixed inset-0 bg-black/50 flex flex-col items-center justify-center font-mono dark:text-[#f7f7ff]'>
+                <div className="w-125 max-h-[70vh] rounded-xl bg-[#F0E7D8] dark:bg-[#57737A] p-6 flex flex-col gap-3 ">
+            
+              <IconButton Icon={X}  onClick={() => setIsClick(false)} size={12}/>
+                <div>Are you sure you want to clear history?</div>
+                <button onClick={()=>{clearHistory();setIsClick(false)}} className='border border-black bg-amber-200 rounded-xl mt-3 mb-3 dark:bg-gray-600 dark:text-white py-2'>Clear History</button>
+          </div>
+            </div>
+        )
+    }
     </div>
   )
 }

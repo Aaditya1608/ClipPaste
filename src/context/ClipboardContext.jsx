@@ -20,6 +20,9 @@ export function ClipboardProvider({ children }) {
     }
   },[])
 
+  const clearHistory = () => {
+    setHistory([]);
+  }
   const togglePin = (id) => {
     setHistory((prev) =>
       prev.map((item) => {
@@ -87,6 +90,7 @@ export function ClipboardProvider({ children }) {
     togglePin,
     stackSize,
     setStackSize,
+    clearHistory
   };
   return (
     <ClipboardContext.Provider value={value}>
