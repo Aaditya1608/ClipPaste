@@ -1,5 +1,20 @@
 import { ClipboardList } from "lucide-react";
+import { useEffect, useState } from "react";
 export default function Splash() {
+  const [progress,setProgress]= useState(0);
+
+  useEffect(()=>{
+    const interval = setInterval(()=>{
+      setProgress((prev)=>{
+        if(prev>=100){
+          clearInterval(interval);
+          return 100;
+        } 
+        return prev+1;
+      })
+    },20);
+    return ()=> clearInterval(interval);
+  },[])
   return (
     <div
       className="
@@ -64,11 +79,11 @@ export default function Splash() {
           <div
             className="
                     h-full
-                    w-1/2
                     bg-[#57737A]
                     animate-pulse
                     rounded-full
                     "
+            style={{width:`${progress}%`}}
           />
         </div>
       </div>
