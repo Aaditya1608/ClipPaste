@@ -64,18 +64,23 @@ const Settings = () => {
               <label>History Size</label>
               <input type="number" min='1' max='100' value={stackSize} onChange={(e)=> setStackSize(Number(e.target.value))} className='border rounded-lg border-slate-400 bg-amber-50 dark:bg-slate-900 w-20'></input>
           </div>
-          <button type="button" onClick={verification} className='border border-black bg-amber-200 rounded-xl mt-3 mb-3 dark:bg-gray-600 dark:text-white py-2'>Clear History</button>
+          <button type="button" onClick={verification} className='border dark:border-white/45 bg-amber-200 rounded-xl mt-3 mb-3 dark:bg-[#151a22] dark:text-white py-2'>Clear History</button>
         </div>
         <div className='border-t border-t-slate-300'></div>
     </div>
     {
         isClick && (
             <div className='fixed inset-0 bg-black/50 flex flex-col items-center justify-center font-mono dark:text-[#f7f7ff]'>
-                <div className="w-125 max-h-[70vh] rounded-xl bg-[#F0E7D8] dark:bg-[#57737A] p-6 flex flex-col gap-3 ">
+                <div className="w-125 max-h-[70vh] rounded-xl bg-[#F0E7D8] dark:bg-[#0a0f16] p-6 flex flex-col gap-3 border dark:border-white/40">
             
-              <IconButton Icon={X}  onClick={() => setIsClick(false)} size={12}/>
-                <div>Are you sure you want to clear history?</div>
-                <button onClick={()=>{clearHistory();setIsClick(false)}} className='border border-black bg-amber-200 rounded-xl mt-3 mb-3 dark:bg-gray-600 dark:text-white py-2'>Clear History</button>
+              {/* <IconButton Icon={X}  onClick={() => setIsClick(false)} size={12}/> */}
+                <div className='text-xl font-bold'>Clear clipboard history?</div>
+                <div>This will remove all unpinned clipboard items.</div>
+                <div> Pinned items will be kept.</div>
+                <div className='flex flex-row gap-2'>
+                    <button onClick={()=>setIsClick(false)} className='bg-amber-200 rounded-xl mt-3 mb-3 dark:bg-[#151a22] dark:text-white py-2 px-2 border dark:border-white/45'>Cancel</button>
+                    <button onClick={()=>{clearHistory();setIsClick(false)}} className='bg-amber-200 rounded-xl mt-3 mb-3 dark:bg-[#151a22] dark:text-white py-2 px-2 border dark:border-white/45'>Clear History</button>
+                </div>
           </div>
             </div>
         )

@@ -21,7 +21,9 @@ export function ClipboardProvider({ children }) {
   },[])
 
   const clearHistory = () => {
-    setHistory([]);
+    setHistory(prev=>
+      prev.filter(item => item.pinned)
+    );
   }
   const togglePin = (id) => {
     setHistory((prev) =>

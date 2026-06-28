@@ -82,6 +82,7 @@ export default function Splash() {
                     bg-[#57737A]
                     animate-pulse
                     rounded-full
+                    dark:bg-white
                     "
             style={{width:`${progress}%`}}
           />
