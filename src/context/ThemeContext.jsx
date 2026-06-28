@@ -8,6 +8,8 @@ export function ThemeProvider({ children }) {
     return localStorage.getItem('theme') === 'dark';
   });
 
+  const isDark = dark?"Dark":"Light";
+
   useEffect(() => {
     const root = document.documentElement;
 
@@ -21,9 +23,11 @@ export function ThemeProvider({ children }) {
   }, [dark]);
 
   const toggleTheme = () => setDark((prev) => !prev);
-
+  const value = {
+     dark, toggleTheme ,isDark
+  }
   return (
-    <ThemeContext.Provider value={{ dark, toggleTheme }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
