@@ -25,6 +25,10 @@ export function ClipboardProvider({ children }) {
       prev.filter(item => item.pinned)
     );
   }
+  const currentItems = history.length;
+  const pinnedItems = history.filter(
+      (item) => item.pinned
+    ).length;
   const togglePin = (id) => {
     setHistory((prev) =>
       prev.map((item) => {
@@ -57,7 +61,7 @@ export function ClipboardProvider({ children }) {
           timestamp: new Date().toISOString(),
           pinned: existingItem ? existingItem.pinned : false,
           shortcutKey: existingItem ? existingItem.pinned : null,
-        };
+        }; 
         console.log("Current stack size:", stackSize);
         return [
           // we return the newly copied data first, and then the other copied item based on FIFO queue
@@ -92,7 +96,9 @@ export function ClipboardProvider({ children }) {
     togglePin,
     stackSize,
     setStackSize,
-    clearHistory
+    clearHistory,
+    currentItems,
+    pinnedItems
   };
   return (
     <ClipboardContext.Provider value={value}>
