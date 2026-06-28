@@ -27,7 +27,7 @@ const Pinned = () => {
   return (
     <div className="h-screen bg-[#f7f7ff] dark:bg-[#070600] border border-zinc-200 dark:border-zinc-700">
     <Header/>
-    <div className='dark:text-[#f7f7ff] px-3 py-1 text-xl font-mono font-bold mb-2'>Pinned Items</div>
+    <div className='dark:text-[#f7f7ff] px-3 py-1 text-xl font-mono font-bold my-2'>Pinned Items</div>
     {pinnedItems.map((item) => (
         <Card
           key={item.id}

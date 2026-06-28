@@ -15,7 +15,7 @@ const Card = ({ item, onClick, onTogglePin }) => {
   return (
     <div
       onClick={onClick}
-      className="cursor-pointer relative rounded-xl py-2 px-4 bg-[#D3EFBD] dark:bg-[#57737A] mb-2 font-mono h-19"
+      className="cursor-pointer relative rounded-xl py-2 px-4 bg-[#D3EFBD] dark:bg-[#0a0f16] mb-2 font-mono h-18 border dark:border-white/25"
     >
       <div className="absolute top-4 right-4 flex gap-2">
         <IconButton Icon={copied ? Check : Copy} onClick={handleCopy} />
