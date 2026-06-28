@@ -32,7 +32,7 @@ const Settings = () => {
             </div>
         </form>
         <div className='px-2 py-2 text-xl font-bold border-t border-t-slate-300'>Shortcuts</div>
-        <div className='flex flex-col gap-2 p-4 bg-amber-50 dark:bg-slate-800 w-100 mx-auto rounded-3xl mb-3'>
+        <div className='flex flex-col gap-2 p-4 bg-amber-50 dark:bg-[#151a22] w-100 mx-auto rounded-3xl mb-3 border dark:border-white/25'>
               <div className='flex flex-row gap-5 justify-between items-baseline'>
                   <div className='text-lg font-bold'> Open ClipStack </div>
                   <div className='text-sm'> Ctrl + Shift + V</div>
