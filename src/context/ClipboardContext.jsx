@@ -6,19 +6,24 @@ const STACK_SIZE_KEY = 'stackSize';
 
 export function ClipboardProvider({ children }) {
   const previousTextRef = useRef(""); //used to point to the copied text before copying
-  const [history, setHistory] = useState([]); // used to store the copied item details
-  const [stackSize, setStackSize] = useState(5);
 
-  useEffect(()=>{ //we load the saved History and the stack Size stored in the keys we made globally
-    const savedHistory = localStorage.getItem(HISTORY_KEY);
-    const savedSize = localStorage.getItem(STACK_SIZE_KEY);
-    if (savedHistory){
-      setHistory(JSON.parse(savedHistory))
-    }
-    if(savedSize){
-      setStackSize(JSON.parse(savedSize))
-    }
-  },[])
+  const [history, setHistory] = useState(() => {
+  const savedHistory = localStorage.getItem(HISTORY_KEY);
+
+  return savedHistory
+    ? JSON.parse(savedHistory)
+    : [];
+});
+
+const [stackSize, setStackSize] = useState(() => {
+  const savedSize = localStorage.getItem(STACK_SIZE_KEY);
+
+  return savedSize
+    ? JSON.parse(savedSize)
+    : 5;
+});
+
+ 
 
   const clearHistory = () => {
     setHistory(prev=>
@@ -60,7 +65,7 @@ export function ClipboardProvider({ children }) {
           copiedData: text,
           timestamp: new Date().toISOString(),
           pinned: existingItem ? existingItem.pinned : false,
-          shortcutKey: existingItem ? existingItem.pinned : null,
+          shortcutKey: existingItem ? existingItem.shortcutKey : null,
         }; 
         console.log("Current stack size:", stackSize);
         return [
@@ -77,9 +82,11 @@ export function ClipboardProvider({ children }) {
     return () => clearInterval(interval); // this is used to prevent checking every 1s
   }, [stackSize]);
   useEffect(() => {
+    console.log("Trimming history to", stackSize);
     setHistory((prev) => prev.slice(0, stackSize));
-  }, [stackSize]);
+  }, [stackSize]); 
   useEffect(()=>{
+    console.log("Saving history:", history.length);
     localStorage.setItem(
       HISTORY_KEY,
       JSON.stringify(history)

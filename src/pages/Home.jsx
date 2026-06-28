@@ -21,7 +21,7 @@ export default function Home() {
     },2000);
   }
   return (
-    <div className="h-screen bg-[#f7f7ff] dark:bg-[#070600] border border-zinc-200 dark:border-zinc-700 overflow-y-auto scrollbar-thin scrollbar-thumb-[#57737a] scrollbar-track-white">
+    <div className="h-screen bg-[#FFFAF3]/50 dark:bg-[#070600] border border-zinc-200 dark:border-zinc-700 overflow-y-auto scrollbar-thin scrollbar-thumb-[#57737a] scrollbar-track-white">
     <Header/>
     {history.map((item) => (
         <Card
